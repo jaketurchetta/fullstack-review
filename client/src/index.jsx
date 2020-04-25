@@ -8,9 +8,25 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repos: []
+      repos:[]
     }
 
+  }
+
+  componentDidMount() {
+    $.ajax({
+      url: '/repos',
+      method: 'GET',
+      contentType: 'application/json',
+      success: (data) => {
+        this.setState({
+          repos: data
+        })
+      },
+      error: (err) => {
+        console.log('Failed GET request! Error: ', err)
+      }
+    })
   }
 
   search (term) {
